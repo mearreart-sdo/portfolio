@@ -1,0 +1,49 @@
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --gray-50: #4c4c4c;
+
+  --color-bg: var(--white);
+  --color-ink: var(--black);
+  --color-muted: var(--gray-50);
+  --opacity-hover: 0.55;
+
+  --font: "Golos Text", sans-serif;
+
+  --text-display-size: 132px;
+  --text-display-weight: 300;
+  --text-display-leading: 0.94;
+  --text-display-tracking: -0.04em;
+
+  --text-link-size: 38px;
+  --text-link-weight: 400;
+  --text-link-leading: 1.1;
+  --text-link-tracking: -0.01em;
+
+  --text-meta-size: 28px;
+  --text-meta-weight: 400;
+  --text-meta-leading: 1.1;
+  --text-meta-tracking: 0.01em;
+
+  --space-8: 8px;
+  --space-24: 24px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-106: 106px;
+  --space-118: 118px;
+  --sep-gap: 0.72em;
+
+  --page-pad-x: var(--space-24);
+  --page-pad-top: var(--space-24);
+  --page-pad-bottom: 0px;
+  --grid-gap-x: var(--space-48);
+  --space-title: var(--space-106);
+  --space-social: var(--space-118);
+  --space-tags: var(--space-64);
+
+  --logo-size: 62px;
+  --arrow-w: 76px;
+  --arrow-h: 68px;
+  --visual-h: 207px;
+  --radius-full: 50%;
+}

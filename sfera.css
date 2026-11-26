@@ -1,0 +1,212 @@
+html,
+body {
+  height: auto;
+  min-height: 100%;
+}
+
+.project {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100dvh;
+  padding: 100px var(--page-pad-x) var(--space-64);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.project-head {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.project-head-main {
+  display: flex;
+  flex-direction: row;
+  align-items: last baseline;
+  column-gap: var(--grid-gap-x);
+}
+
+.project-head-main > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.project-head-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  column-gap: var(--grid-gap-x);
+}
+
+.project-head-meta > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.project-title {
+  margin: 0;
+  font-size: var(--text-display-size);
+  font-weight: var(--text-display-weight);
+  line-height: var(--text-display-leading);
+  letter-spacing: var(--text-display-tracking);
+  color: var(--color-ink);
+}
+
+.project-lead {
+  margin: 0;
+  font-size: var(--text-link-size);
+  font-weight: var(--text-link-weight);
+  line-height: var(--text-link-leading);
+  letter-spacing: var(--text-link-tracking);
+  color: var(--color-ink);
+}
+
+.project-url {
+  display: inline-block;
+  margin: 0;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: var(--text-meta-weight);
+  line-height: 1.2;
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.project-url:hover {
+  opacity: var(--opacity-hover);
+}
+
+.project-tags {
+  margin: -10px 0 0;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: var(--text-meta-weight);
+  line-height: 1.2;
+  letter-spacing: var(--text-meta-tracking);
+  color: rgb(0, 0, 0);
+}
+
+.project-tags .sep,
+.project-quote-tags .sep {
+  margin: 0 var(--sep-gap);
+}
+
+.project-hero {
+  margin: var(--space-64) 0 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.project-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.project-hero + .project-block {
+  margin-top: 100px;
+}
+
+.project-block {
+  margin: var(--space-64) 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--grid-gap-x);
+  align-items: start;
+}
+
+.project-shot + .project-block,
+.project-quote + .project-block {
+  margin-top: 100px;
+}
+
+.project-label {
+  margin: 0;
+  font-size: var(--text-meta-size);
+  font-weight: var(--text-meta-weight);
+  line-height: var(--text-meta-leading);
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--color-ink);
+}
+
+.project-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.project-copy p,
+.project-copy li {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--text-meta-size);
+  font-weight: var(--text-meta-weight);
+  line-height: 1.25;
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--color-ink);
+}
+
+.project-copy ul {
+  margin: 0;
+  padding: 0 0 0 1.1em;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-quote {
+  box-sizing: border-box;
+  margin: 120px 0;
+  margin-left: max(0px, calc(28.5vw - var(--page-pad-x)));
+  width: 52vw;
+  max-width: calc(100% - max(0px, calc(28.5vw - var(--page-pad-x))));
+  display: block;
+}
+
+.project-quote + .project-shot {
+  margin-top: 0;
+}
+
+.project-quote-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.project-quote-inner > p:first-child {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 38px;
+  font-weight: var(--text-link-weight);
+  line-height: var(--text-link-leading);
+  letter-spacing: var(--text-link-tracking);
+  color: var(--color-ink);
+}
+
+.project-quote-tags {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: var(--text-meta-weight);
+  line-height: 1.2;
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--color-muted);
+}
+
+.project-shot {
+  margin: 100px 0 0;
+  width: 100%;
+}
+
+.project-shot + .project-shot {
+  margin-top: 16px;
+}
+
+.project-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kit · Main page</title>
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      html,
+      body {
+        height: auto;
+        min-height: 100%;
+      }
+
+      .kit {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: var(--page-pad-top) var(--page-pad-x) 96px;
+      }
+
+      .kit-top {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: start;
+        gap: var(--space-48);
+        padding-bottom: var(--space-64);
+      }
+
+      .kit-kicker {
+        margin: 0 0 12px;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+      }
+
+      .kit-title {
+        margin: 0;
+        font-size: 64px;
+        font-weight: 300;
+        line-height: 0.94;
+        letter-spacing: -0.04em;
+      }
+
+      .kit-lead {
+        margin: 16px 0 0;
+        max-width: 36em;
+        font-size: var(--text-meta-size);
+        font-weight: var(--text-meta-weight);
+        line-height: var(--text-meta-leading);
+        letter-spacing: var(--text-meta-tracking);
+        color: var(--color-muted);
+      }
+
+      .kit-nav {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-8);
+        padding-top: 8px;
+      }
+
+      .kit-nav a {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.1;
+        color: var(--color-ink);
+        text-decoration: none;
+        letter-spacing: -0.01em;
+      }
+
+      .kit-nav a:hover {
+        opacity: var(--opacity-hover);
+      }
+
+      .kit-section {
+        padding: var(--space-64) 0 0;
+        border-top: 1px solid var(--color-ink);
+      }
+
+      .kit-section h2 {
+        margin: 0 0 var(--space-48);
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-48);
+      }
+
+      .swatch-chip {
+        aspect-ratio: 1.4 / 1;
+        border: 1px solid var(--color-ink);
+      }
+
+      .swatch-chip.is-ink {
+        background: var(--color-ink);
+      }
+
+      .swatch-chip.is-bg {
+        background: var(--color-bg);
+      }
+
+      .swatch-chip.is-muted {
+        background: var(--color-muted);
+      }
+
+      .swatch-meta {
+        margin: 16px 0 0;
+        display: grid;
+        gap: 4px;
+        font-size: 18px;
+        line-height: 1.2;
+      }
+
+      .swatch-meta small {
+        font-size: 14px;
+        color: var(--color-muted);
+      }
+
+      .type-row {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: var(--space-48);
+        align-items: start;
+        padding: var(--space-48) 0;
+        border-top: 1px solid var(--color-ink);
+      }
+
+      .type-row:first-of-type {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .type-spec {
+        margin: 0;
+        display: grid;
+        gap: 6px;
+        font-size: 16px;
+        line-height: 1.3;
+        color: var(--color-muted);
+      }
+
+      .type-spec strong {
+        color: var(--color-ink);
+        font-weight: 400;
+      }
+
+      .specimen-display {
+        margin: 0;
+        font-size: var(--text-display-size);
+        font-weight: var(--text-display-weight);
+        line-height: var(--text-display-leading);
+        letter-spacing: var(--text-display-tracking);
+      }
+
+      .specimen-link {
+        margin: 0;
+        font-size: var(--text-link-size);
+        font-weight: var(--text-link-weight);
+        line-height: var(--text-link-leading);
+        letter-spacing: var(--text-link-tracking);
+      }
+
+      .specimen-meta {
+        margin: 0;
+        font-size: var(--text-meta-size);
+        font-weight: var(--text-meta-weight);
+        line-height: var(--text-meta-leading);
+        letter-spacing: var(--text-meta-tracking);
+        color: var(--color-muted);
+      }
+
+      .space-list {
+        display: grid;
+        gap: 20px;
+      }
+
+      .space-row {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: var(--space-48);
+        align-items: center;
+      }
+
+      .space-row p {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.3;
+        color: var(--color-muted);
+      }
+
+      .space-row p strong {
+        display: block;
+        color: var(--color-ink);
+        font-weight: 400;
+      }
+
+      .space-bar {
+        height: 28px;
+        background: var(--color-ink);
+      }
+
+      .layout-frame {
+        border: 1px solid var(--color-ink);
+        padding: var(--page-pad-top) var(--page-pad-x) 0;
+        min-height: 720px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto auto 1fr;
+        column-gap: var(--grid-gap-x);
+        background: var(--color-bg);
+      }
+
+      .layout-logo {
+        grid-column: 1;
+        grid-row: 1;
+        width: var(--logo-size);
+        height: var(--logo-size);
+        border-radius: var(--radius-full);
+        background: var(--color-ink);
+      }
+
+      .layout-title {
+        grid-column: 1;
+        grid-row: 2;
+        margin: var(--space-title) 0 0;
+        font-size: 42px;
+        font-weight: 300;
+        line-height: 0.94;
+        letter-spacing: -0.04em;
+      }
+
+      .layout-social {
+        grid-column: 2;
+        grid-row: 2;
+        margin-top: var(--space-social);
+        display: flex;
+        align-items: center;
+        gap: var(--space-48);
+        font-size: 22px;
+        line-height: 1.1;
+      }
+
+      .layout-tags {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        margin: var(--space-tags) 0 0;
+        font-size: var(--text-meta-size);
+        color: var(--color-muted);
+      }
+
+      .layout-visual {
+        grid-column: 1 / -1;
+        grid-row: 4;
+        align-self: end;
+        height: var(--visual-h);
+        background: var(--color-ink);
+      }
+
+      .layout-notes {
+        margin: var(--space-48) 0 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-48);
+      }
+
+      .layout-notes p {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.35;
+        color: var(--color-muted);
+      }
+
+      .layout-notes strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--color-ink);
+        font-weight: 400;
+      }
+
+      .size-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-48);
+        align-items: end;
+      }
+
+      .size-item p {
+        margin: 16px 0 0;
+        font-size: 16px;
+        line-height: 1.3;
+        color: var(--color-muted);
+      }
+
+      .size-item strong {
+        display: block;
+        color: var(--color-ink);
+        font-weight: 400;
+      }
+
+      .size-logo {
+        width: var(--logo-size);
+        height: var(--logo-size);
+        border-radius: var(--radius-full);
+        object-fit: cover;
+        display: block;
+      }
+
+      .size-arrow {
+        width: var(--arrow-w);
+        height: var(--arrow-h);
+        object-fit: contain;
+        display: block;
+      }
+
+      .size-visual {
+        width: 100%;
+        height: var(--visual-h);
+        object-fit: cover;
+        display: block;
+      }
+
+      .state-row {
+        display: flex;
+        gap: var(--space-48);
+        align-items: baseline;
+      }
+
+      .state-row a {
+        font-size: var(--text-link-size);
+        font-weight: var(--text-link-weight);
+        line-height: var(--text-link-leading);
+        letter-spacing: var(--text-link-tracking);
+        color: var(--color-ink);
+        text-decoration: none;
+      }
+
+      .state-row a.is-hover {
+        opacity: var(--opacity-hover);
+      }
+
+      .state-cap {
+        margin-top: 12px;
+        font-size: 16px;
+        color: var(--color-muted);
+      }
+
+      code {
+        font-family: var(--font);
+        font-size: inherit;
+      }
+
+      .specimen-meta .sep {
+        margin: 0 var(--sep-gap);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="kit">
+      <header class="kit-top">
+        <div>
+          <p class="kit-kicker">Portfolio · tokens</p>
+          <h1 class="kit-title">Main page kit</h1>
+          <p class="kit-lead">
+            Цвета, типографика, отступы и лэйаут из Main page.
+            Только production-значения из index.html и styles.css.
+          </p>
+        </div>
+        <nav class="kit-nav">
+          <a href="index.html">Main page</a>
+          <a href="tokens.css">tokens.css</a>
+        </nav>
+      </header>
+
+      <section class="kit-section">
+        <h2>Цвет</h2>
+        <div class="swatches">
+          <div>
+            <div class="swatch-chip is-bg"></div>
+            <p class="swatch-meta">
+              <strong>Background</strong>
+              <span>#FFFFFF</span>
+              <small>--color-bg · html, body, .stage</small>
+            </p>
+          </div>
+          <div>
+            <div class="swatch-chip is-ink"></div>
+            <p class="swatch-meta">
+              <strong>Ink</strong>
+              <span>#000000</span>
+              <small>--color-ink · title, links, arrow</small>
+            </p>
+          </div>
+          <div>
+            <div class="swatch-chip is-muted"></div>
+            <p class="swatch-meta">
+              <strong>Muted</strong>
+              <span>#4C4C4C</span>
+              <small>--color-muted · .tags</small>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="kit-section">
+        <h2>Типографика</h2>
+        <p class="kit-lead" style="margin: -24px 0 48px; max-width: none">
+          Один шрифт: Golos Text. Три роли.
+        </p>
+
+        <div class="type-row">
+          <p class="type-spec">
+            <strong>Display</strong>
+            132 / 300<br />
+            lh 0.94 · ls −0.04em<br />
+            .title
+          </p>
+          <p class="specimen-display">Менеджмент</p>
+        </div>
+
+        <div class="type-row">
+          <p class="type-spec">
+            <strong>Link</strong>
+            38 / 400<br />
+            lh 1.1 · ls −0.01em<br />
+            .social-links a
+          </p>
+          <p class="specimen-link">telegram<br />linkedin</p>
+        </div>
+
+        <div class="type-row">
+          <p class="type-spec">
+            <strong>Meta</strong>
+            28 / 400<br />
+            lh 1.1 · ls +0.01em<br />
+            .tags · цвет muted
+          </p>
+          <p class="specimen-meta">
+            brand<span class="sep">•</span>UX/UI<span class="sep">•</span>product design
+          </p>
+        </div>
+      </section>
+
+      <section class="kit-section">
+        <h2>Отступы</h2>
+        <div class="space-list">
+          <div class="space-row">
+            <p>
+              <strong>--space-8 · 8px</strong>
+              gap между telegram / linkedin
+            </p>
+            <div class="space-bar" style="width: 8px"></div>
+          </div>
+          <div class="space-row">
+            <p>
+              <strong>--space-24 · 24px</strong>
+              паддинг сцены сверху и по бокам
+            </p>
+            <div class="space-bar" style="width: 24px"></div>
+          </div>
+          <div class="space-row">
+            <p>
+              <strong>--space-48 · 48px</strong>
+              column-gap сетки и gap стрелка → ссылки
+            </p>
+            <div class="space-bar" style="width: 48px"></div>
+          </div>
+          <div class="space-row">
+            <p>
+              <strong>--space-64 · 64px</strong>
+              отступ тегов от заголовка
+            </p>
+            <div class="space-bar" style="width: 64px"></div>
+          </div>
+          <div class="space-row">
+            <p>
+              <strong>--space-106 · 106px</strong>
+              отступ заголовка от логотипа
+            </p>
+            <div class="space-bar" style="width: 106px"></div>
+          </div>
+          <div class="space-row">
+            <p>
+              <strong>--space-118 · 118px</strong>
+              отступ соцблока от верхней линии ряда
+            </p>
+            <div class="space-bar" style="width: 118px"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="kit-section">
+        <h2>Лэйаут</h2>
+        <div class="layout-frame">
+          <div class="layout-logo"></div>
+          <p class="layout-title">Менеджмент<br />Артдирекшн<br />Дизайн</p>
+          <div class="layout-social">
+            <img class="size-arrow" src="assets/arrow.png" alt="" />
+            <div>telegram<br />linkedin</div>
+          </div>
+          <p class="layout-tags">brand · UX/UI · product design · web · mobile</p>
+          <div class="layout-visual"></div>
+        </div>
+        <div class="layout-notes">
+          <p>
+            <strong>Сетка</strong>
+            2 колонки: 1fr / auto<br />
+            4 ряда: auto auto auto 1fr<br />
+            column-gap 48px
+          </p>
+          <p>
+            <strong>Паддинг сцены</strong>
+            24px сверху и по бокам<br />
+            0 снизу — визуал в край
+          </p>
+          <p>
+            <strong>Ячейки</strong>
+            logo: col 1 / row 1<br />
+            title: col 1 / row 2 · social: col 2 / row 2<br />
+            tags: span / row 3 · visual: span / row 4, end
+          </p>
+        </div>
+      </section>
+
+      <section class="kit-section">
+        <h2>Размеры</h2>
+        <div class="size-grid">
+          <div class="size-item">
+            <img class="size-logo" src="assets/logo.png" alt="" />
+            <p><strong>Logo 62×62</strong>radius 50% · --logo-size</p>
+          </div>
+          <div class="size-item">
+            <img class="size-arrow" src="assets/arrow.png" alt="" />
+            <p><strong>Arrow 76×68</strong>--arrow-w / --arrow-h</p>
+          </div>
+          <div class="size-item">
+            <img class="size-visual" src="assets/hero.png" alt="" />
+            <p><strong>Visual 100% × 207</strong>--visual-h · object-fit cover</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="kit-section">
+        <h2>Состояние</h2>
+        <div class="state-row">
+          <div>
+            <a href="#">telegram</a>
+            <p class="state-cap">default · opacity 1</p>
+          </div>
+          <div>
+            <a class="is-hover" href="#">telegram</a>
+            <p class="state-cap">hover · opacity 0.55</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
