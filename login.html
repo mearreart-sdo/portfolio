@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вход · Портфолио</title>
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="login.css" />
+    <script src="js/auth-config.js"></script>
+    <script src="js/auth.js"></script>
+  </head>
+  <body class="login-body">
+    <main class="login">
+      <img class="login-logo" src="assets/logo.png" width="62" height="62" alt="" />
+      <h1 class="login-title">Портфолио</h1>
+      <p class="login-lead">Введите пароль, чтобы открыть материалы</p>
+
+      <form class="login-form" id="login-form" autocomplete="off">
+        <label class="login-label" for="password">Пароль</label>
+        <input
+          class="login-input"
+          id="password"
+          name="password"
+          type="password"
+          inputmode="text"
+          autofocus
+          required
+        />
+        <p class="login-error" id="login-error" hidden>Неверный пароль</p>
+        <button class="login-submit" type="submit">Войти</button>
+      </form>
+    </main>
+
+    <script>
+      (function () {
+        if (window.PortfolioAuth && PortfolioAuth.isAuthed()) {
+          var params = new URLSearchParams(location.search);
+          var next = params.get("next") || "index.html";
+          if (/^https?:/i.test(next) || next.indexOf("..") !== -1) next = "index.html";
+          location.replace(next);
+          return;
+        }
+
+        var form = document.getElementById("login-form");
+        var error = document.getElementById("login-error");
+        var input = document.getElementById("password");
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          error.hidden = true;
+
+          PortfolioAuth.sha256(input.value).then(function (hash) {
+            if (hash !== PortfolioAuth.expectedHash) {
+              error.hidden = false;
+              input.select();
+              return;
+            }
+
+            PortfolioAuth.setAuthed();
+            var params = new URLSearchParams(location.search);
+            var next = params.get("next") || "index.html";
+            if (/^https?:/i.test(next) || next.indexOf("..") !== -1) next = "index.html";
+            location.replace(next);
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

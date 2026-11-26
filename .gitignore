@@ -2,3 +2,5 @@ _ref/
 .DS_Store
 .tmp-sfera/
 *.log
+.password
+dist/
