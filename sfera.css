@@ -1,7 +1,12 @@
 html,
-body {
+body.page-project {
   height: auto;
   min-height: 100%;
+  overflow: auto;
+}
+
+.page-project {
+  overflow: auto;
 }
 
 .project {
@@ -12,6 +17,118 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
+}
+
+/* —— Arrive from home: img FLIP → head-main → rest —— */
+html.from-home .page-project.is-arrive-from-home .project-hero:not(.is-hero-ready) {
+  visibility: hidden;
+}
+
+html.from-home .page-project.is-arrive-from-home .project-hero.is-hero-ready {
+  visibility: visible;
+}
+
+.hero-flip-clone {
+  position: fixed;
+  z-index: 99999;
+  margin: 0;
+  overflow: hidden;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero-flip-clone img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-flip-clone.is-running {
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.from-home .page-project.is-arrive-from-home:not(.is-arrive-play) .arrive-head-main {
+  opacity: 0;
+  transform: translate3d(0, 36px, 0);
+  filter: blur(4px);
+  will-change: opacity, transform, filter;
+}
+
+html.from-home .page-project.is-arrive-from-home:not(.is-arrive-play) .arrive-head-meta,
+html.from-home .page-project.is-arrive-from-home:not(.is-arrive-play) .arrive-rest {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  will-change: opacity, transform;
+}
+
+html.from-home .page-project.is-arrive-play .arrive-head-main {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition:
+    opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 140ms;
+}
+
+html.from-home .page-project.is-arrive-play .arrive-head-meta,
+html.from-home .page-project.is-arrive-play .arrive-rest {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.from-home .page-project.is-arrive-play .arrive-head-meta {
+  transition-delay: 260ms;
+}
+
+html.from-home .page-project.is-arrive-play .arrive-rest {
+  transition-delay: var(--arrive-rest-delay, 340ms);
+}
+
+.page-project.is-leaving .project-head,
+.page-project.is-leaving .project-hero,
+.page-project.is-leaving .project-block,
+.page-project.is-leaving .project-shot,
+.page-project.is-leaving .project-quote,
+.page-project.is-leaving .page-enter-item,
+.page-project.is-leaving .arrive-hero,
+.page-project.is-leaving .arrive-head-main,
+.page-project.is-leaving .arrive-head-meta,
+.page-project.is-leaving .arrive-rest {
+  opacity: 0 !important;
+  transform: translate3d(0, 18px, 0) !important;
+  transition:
+    opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 500ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition-delay: 0ms !important;
+  pointer-events: none;
+}
+
+.page-project.is-leaving {
+  cursor: progress;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.from-home .page-project.is-arrive-from-home .arrive-hero,
+  html.from-home .page-project.is-arrive-from-home .arrive-head-main,
+  html.from-home .page-project.is-arrive-from-home .arrive-head-meta,
+  html.from-home .page-project.is-arrive-from-home .arrive-rest,
+  .page-project.is-leaving .project-head,
+  .page-project.is-leaving .project-hero,
+  .page-project.is-leaving .project-block,
+  .page-project.is-leaving .project-shot,
+  .page-project.is-leaving .project-quote {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
 }
 
 .project-head {

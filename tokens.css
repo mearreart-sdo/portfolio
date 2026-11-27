@@ -37,8 +37,9 @@
   --page-pad-top: var(--space-24);
   --page-pad-bottom: 0px;
   --grid-gap-x: var(--space-48);
-  --space-title: var(--space-106);
-  --space-social: var(--space-118);
+  --header-h: 68px;
+  --space-title: 64px;
+  --space-social: 72px;
   --space-tags: var(--space-64);
 
   --logo-size: 62px;

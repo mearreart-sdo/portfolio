@@ -22,7 +22,10 @@ mkdir -p "$DIST/js" "$DIST/assets" "$DIST/fonts"
 
 cp "$ROOT/index.html" "$ROOT/sfera.html" "$ROOT/kit.html" "$ROOT/login.html" "$DIST/"
 cp "$ROOT/styles.css" "$ROOT/tokens.css" "$ROOT/sfera.css" "$ROOT/login.css" "$DIST/"
-cp "$ROOT/js/auth.js" "$DIST/js/"
+cp "$ROOT/js/auth.js" "$ROOT/js/shared-scroll.js" "$ROOT/js/page-enter.js" "$ROOT/js/site-header.js" "$DIST/js/"
+# Legacy files kept if still referenced elsewhere
+[ -f "$ROOT/js/home-scroll.js" ] && cp "$ROOT/js/home-scroll.js" "$DIST/js/"
+[ -f "$ROOT/js/project-enter.js" ] && cp "$ROOT/js/project-enter.js" "$DIST/js/"
 cp -R "$ROOT/assets/." "$DIST/assets/"
 cp -R "$ROOT/fonts/." "$DIST/fonts/"
 
