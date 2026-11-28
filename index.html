@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Менеджмент · Артдирекшн · Дизайн</title>
     <link rel="icon" href="assets/logo.png" type="image/png" />
-    <link rel="stylesheet" href="styles.css?v=25" />
-    <link rel="stylesheet" href="sfera.css?v=25" />
+    <link rel="stylesheet" href="styles.css?v=36" />
+    <link rel="stylesheet" href="sfera.css?v=36" />
     <style id="auth-hide">html.auth-pending body{visibility:hidden}</style>
     <script>
       (function () {
@@ -23,21 +23,22 @@
 
     <header class="site-header" data-site-header>
       <a class="site-brand" href="index.html" data-nav-home>
-        <img class="site-brand-mark" src="assets/logo.png" width="40" height="40" alt="" />
+        <img class="site-brand-mark" src="assets/logo.png" width="62" height="62" alt="" />
         <span class="site-brand-name">I K</span>
       </a>
-      <nav class="site-nav" aria-label="Основная навигация">
+      <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
         <a class="site-nav-link" href="#sfera" data-nav-projects>Проекты</a>
         <a class="site-nav-link" href="#about" data-nav-about>Обо мне</a>
       </nav>
+      <button class="site-menu" type="button" data-site-menu aria-controls="site-nav" aria-expanded="false">Меню</button>
     </header>
 
     <div class="shell" data-shell>
       <section class="stage" data-home-stage aria-label="Старт">
         <h1 class="title">
-          Менеджмент<br />
-          Артдирекшн<br />
-          Дизайн
+          <span>Менеджмент</span>
+          <span>Артдирекшн</span>
+          <span>Дизайн<span class="title-dot" aria-hidden="true"></span></span>
         </h1>
 
         <div class="social">
@@ -48,7 +49,7 @@
           </div>
         </div>
 
-        <p class="tags">brand<span class="sep">•</span>UX/UI<span class="sep">•</span>product design<span class="sep">•</span>web<span class="sep">•</span>mobile</p>
+        <p class="tags">brand<span class="sep">•</span>UX/UI<span class="sep">•</span>product design</p>
 
         <div class="visual-slot visual-slot--home" data-slot-home aria-hidden="true"></div>
       </section>
@@ -230,11 +231,14 @@
     </div>
 
     <figure class="shared-visual" data-shared-visual>
-      <img src="assets/sfera-hero.png" alt="" width="2784" height="936" />
+      <picture>
+        <source media="(max-width: 1023px)" srcset="assets/sfera-hero-mobile.png" width="738" height="488" />
+        <img src="assets/sfera-hero.png" alt="" width="2784" height="936" />
+      </picture>
     </figure>
 
     <script src="js/page-enter.js?v=7"></script>
-    <script src="js/site-header.js?v=1"></script>
-    <script src="js/shared-scroll.js?v=6"></script>
+    <script src="js/site-header.js?v=2"></script>
+    <script src="js/shared-scroll.js?v=9"></script>
   </body>
 </html>

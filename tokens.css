@@ -2,18 +2,27 @@
   --white: #ffffff;
   --black: #000000;
   --gray-50: #4c4c4c;
+  --accent: #1838eb;
 
   --color-bg: var(--white);
   --color-ink: var(--black);
   --color-muted: var(--gray-50);
+  --color-accent: var(--accent);
   --opacity-hover: 0.55;
 
   --font: "Golos Text", sans-serif;
 
+  /* Desktop type (Figma main) */
   --text-display-size: 132px;
   --text-display-weight: 300;
   --text-display-leading: 0.94;
   --text-display-tracking: -0.04em;
+
+  /* Mobile H1 (Figma 393) */
+  --text-display-mobile-size: 58px;
+  --text-display-mobile-weight: 400;
+  --text-display-mobile-leading: 64px;
+  --text-display-mobile-tracking: -0.58px;
 
   --text-link-size: 38px;
   --text-link-weight: 400;
@@ -25,6 +34,16 @@
   --text-meta-leading: 1.1;
   --text-meta-tracking: 0.01em;
 
+  /* H3 mobile (Figma / kit) */
+  --text-h3-mobile-size: 22px;
+  --text-h3-mobile-weight: 400;
+  --text-h3-mobile-leading: 36px;
+  --text-h3-mobile-tracking: 0.01em;
+
+  --text-ui-size: 18px;
+  --text-ui-weight: 400;
+  --text-ui-leading: 24px;
+
   --space-8: 8px;
   --space-24: 24px;
   --space-48: 48px;
@@ -34,17 +53,25 @@
   --sep-gap: 0.72em;
 
   --page-pad-x: var(--space-24);
+  --page-pad-x-mobile: 12px;
   --page-pad-top: var(--space-24);
   --page-pad-bottom: 0px;
   --grid-gap-x: var(--space-48);
   --header-h: 68px;
+  --header-h-mobile: 86px;
   --space-title: 64px;
-  --space-social: 72px;
+  --space-title-mobile: 119px;
+  --space-social: 92px;
   --space-tags: var(--space-64);
+  --space-visual-mobile: 152px;
 
   --logo-size: 62px;
+  --logo-size-desktop: 40px;
   --arrow-w: 76px;
   --arrow-h: 68px;
   --visual-h: 207px;
+  /* Mobile art 738×488 — width fluid, height from ratio until desktop breakpoint */
+  --visual-mobile-ratio: 738 / 488;
   --radius-full: 50%;
+  --dot-size: 18px;
 }

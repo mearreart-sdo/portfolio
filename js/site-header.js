@@ -63,6 +63,16 @@
 
   const homeLink = header.querySelector("[data-nav-home]");
   const projectsLink = header.querySelector("[data-nav-projects]");
+  const menuBtn = header.querySelector("[data-site-menu]");
+
+  const goProjects = () => {
+    show();
+    if (typeof window.PortfolioShell?.goProject === "function") {
+      window.PortfolioShell.goProject();
+    } else {
+      location.hash = "#sfera";
+    }
+  };
 
   if (homeLink) {
     homeLink.addEventListener("click", (event) => {
@@ -82,12 +92,13 @@
   if (projectsLink) {
     projectsLink.addEventListener("click", (event) => {
       event.preventDefault();
-      show();
-      if (typeof window.PortfolioShell?.goProject === "function") {
-        window.PortfolioShell.goProject();
-      } else {
-        location.hash = "#sfera";
-      }
+      goProjects();
+    });
+  }
+
+  if (menuBtn) {
+    menuBtn.addEventListener("click", () => {
+      goProjects();
     });
   }
 

@@ -10,12 +10,16 @@
   const shared = document.querySelector("[data-shared-visual]");
   if (!shell || !homeStage || !project || !slotHome || !slotProject || !shared) return;
 
-  if (shared.parentElement !== body) body.appendChild(shared);
-  shared.classList.remove("is-docked");
-  shared.style.top = "0px";
-  shared.style.left = "0px";
-  shared.style.right = "auto";
-  shared.style.bottom = "auto";
+  const undockShared = () => {
+    shared.classList.remove("is-docked");
+    if (shared.parentElement !== body) body.appendChild(shared);
+    shared.style.top = "0px";
+    shared.style.left = "0px";
+    shared.style.right = "auto";
+    shared.style.bottom = "auto";
+  };
+
+  undockShared();
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const HASH = "#sfera";
@@ -33,6 +37,7 @@
   let fromBox = null;
   let toBox = null;
   let pinned = false;
+  let docked = false;
 
   const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
   const easeOut = (t) => 1 - Math.pow(1 - t, 3);
@@ -48,6 +53,7 @@
   };
 
   const applySharedBox = (next) => {
+    if (docked) return;
     // Round to device pixels to avoid subpixel shimmer at rest.
     const dpr = window.devicePixelRatio || 1;
     const snap = (v) => Math.round(v * dpr) / dpr;
@@ -55,6 +61,29 @@
     shared.style.height = snap(next.height) + "px";
     shared.style.transform =
       "translate3d(" + snap(next.left) + "px, " + snap(next.top) + "px, 0)";
+  };
+
+  const dockToProject = () => {
+    if (docked) return;
+    docked = true;
+    shared.style.width = "";
+    shared.style.height = "";
+    shared.style.transform = "";
+    shared.style.top = "";
+    shared.style.left = "";
+    shared.classList.add("is-docked");
+    if (shared.parentElement !== slotProject) slotProject.appendChild(shared);
+  };
+
+  const undockFromProject = () => {
+    if (!docked) return;
+    const live = readRect(slotProject);
+    docked = false;
+    undockShared();
+    if (live.width && live.height) {
+      toBox = live;
+      applySharedBox(live);
+    }
   };
 
   const lerpBox = (a, b, t) => ({
@@ -77,11 +106,17 @@
   };
 
   const paintShared = (p) => {
-    // While riding, only use locked endpoints — one continuous path.
+    // Ride only moves the frame — size stays the home size until docked.
     const from = pinned && fromBox ? fromBox : readRect(slotHome);
     const to = pinned && toBox ? toBox : readRect(slotProject);
     if (!from.width || !to.width) return;
-    applySharedBox(lerpBox(from, to, easeOut(clamp(p, 0, 1))));
+    const t = easeOut(clamp(p, 0, 1));
+    applySharedBox({
+      top: from.top + (to.top - from.top) * t,
+      left: from.left + (to.left - from.left) * t,
+      width: from.width,
+      height: from.height,
+    });
   };
 
   const syncHistory = (on) => {
@@ -113,20 +148,21 @@
   };
 
   const settleProject = () => {
-    // Final frame stays on locked toBox — do not remeasure.
     display = 1;
     progress = 1;
     paintChrome(1);
-    if (toBox) applySharedBox(toBox);
-    else paintShared(1);
     setProjectMode(true);
-    // Keep toBox as the resting pin at scrollTop=0; unlock only after user scrolls.
+    // Dock into the slot so scroll never remasures size.
+    requestAnimationFrame(() => {
+      dockToProject();
+    });
   };
 
   const settleHome = () => {
     display = 0;
     progress = 0;
     paintChrome(0);
+    undockFromProject();
     if (fromBox) applySharedBox(fromBox);
     else paintShared(0);
     setProjectMode(false);
@@ -168,13 +204,17 @@
     const prev = progress;
     progress = clamp(next, 0, 1);
 
-    if (prev < 0.001 && progress > 0.001) lockRide();
+    if (prev < 0.001 && progress > 0.001) {
+      undockFromProject();
+      lockRide();
+    }
     if (prev > 0.999 && progress < 0.999) {
+      undockFromProject();
       project.scrollTop = 0;
       setProjectMode(false);
       lockRide();
     }
-    if (!pinned && progress > 0 && progress < 1) lockRide();
+    if (!pinned && !docked && progress > 0 && progress < 1) lockRide();
 
     body.classList.toggle("is-transitioning", progress > 0.01 && progress < 0.99);
 
@@ -324,20 +364,9 @@
   let lastProjectY = 0;
   const onProjectScroll = () => {
     const y = project.scrollTop || 0;
-    if (y > TOP_EPS) {
-      leftProjectTop = true;
-      // Follow the slot only after the user actually scrolls content.
-      if (inProject) {
-        unlockRide();
-        const live = readRect(slotProject);
-        if (live.width) applySharedBox(live);
-      }
-    } else if (inProject && toBox) {
-      // Back at top — restore the same resting frame we arrived on (no snap to a new measure).
-      pinned = true;
-      applySharedBox(toBox);
-    }
+    if (y > TOP_EPS) leftProjectTop = true;
 
+    // Docked image scrolls with the slot — no size/position updates.
     if (window.SiteHeader && inProject) {
       const delta = y - lastProjectY;
       if (y <= 8) window.SiteHeader.show();
@@ -349,16 +378,14 @@
 
   const onResize = () => {
     if (progress > 0 && progress < 1) {
+      undockFromProject();
       lockRide();
       paintShared(display);
       return;
     }
     if (inProject) {
-      toBox = readRect(slotProject);
       fromBox = readRect(slotHome);
-      pinned = true;
-      if ((project.scrollTop || 0) <= TOP_EPS && toBox) applySharedBox(toBox);
-      else applySharedBox(readRect(slotProject));
+      if (!docked) dockToProject();
       return;
     }
     unlockRide();
@@ -379,10 +406,11 @@
   if (startInProject) {
     progress = 1;
     display = 1;
-    lockRide();
     paintChrome(1);
-    if (toBox) applySharedBox(toBox);
     setProjectMode(true);
+    requestAnimationFrame(() => {
+      dockToProject();
+    });
   } else {
     progress = 0;
     display = 0;

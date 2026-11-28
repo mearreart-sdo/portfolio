@@ -58,11 +58,16 @@ body {
   background: var(--color-bg);
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
 /* —— Page enter —— */
@@ -243,6 +248,7 @@ body.is-page-ready .shared-visual {
 }
 
 .page-shell .visual-slot--project {
+  position: relative;
   margin: var(--space-64) 0 0;
   width: 100%;
   aspect-ratio: 2784 / 936;
@@ -277,6 +283,23 @@ body.is-page-ready .shared-visual {
   backface-visibility: hidden;
 }
 
+/* Docked into project slot — scrolls with content, size never remasured */
+.shared-visual.is-docked {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100% !important;
+  height: 100% !important;
+  transform: none !important;
+  will-change: auto;
+}
+
+.shared-visual picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .shared-visual img {
   width: 100%;
   height: 100%;
@@ -285,12 +308,96 @@ body.is-page-ready .shared-visual {
   display: block;
 }
 
+@media (max-width: 1023px) {
+  .page-shell.is-mode-home .shared-visual img {
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
 .page-shell.is-transitioning {
   cursor: progress;
 }
 
 .page-shell.is-mode-project .shared-visual {
   z-index: 40;
+}
+
+/* Mobile home = Figma 393 composition (not scaled desktop) */
+@media (max-width: 1023px) {
+  html,
+  body.page-shell {
+    height: auto;
+    min-height: 100%;
+    overflow: auto;
+  }
+
+  .page-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .page-shell.is-mode-home .shell {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .page-shell.is-mode-home .stage {
+    position: relative;
+    inset: auto;
+    height: auto;
+    min-height: 100dvh;
+    padding: 0 var(--page-pad-x-mobile) 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .page-shell .title {
+    margin-top: var(--space-title-mobile);
+  }
+
+  .page-shell .social {
+    display: none;
+  }
+
+  .page-shell .tags {
+    margin: var(--space-tags) 0 0;
+  }
+
+  .page-shell .visual-slot--home {
+    margin-top: var(--space-visual-mobile);
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--visual-mobile-ratio);
+    flex-shrink: 0;
+  }
+
+  /* Same frame size as home — transition only shifts it up */
+  .page-shell .visual-slot--project {
+    aspect-ratio: var(--visual-mobile-ratio);
+  }
+
+  .page-shell .project-panel {
+    /* Header is in normal flow on mobile (~86px); title must sit at 140px from viewport top */
+    padding: calc(140px - var(--header-h-mobile)) var(--page-pad-x-mobile) var(--space-64);
+    scrollbar-gutter: auto;
+  }
+
+  .page-shell.is-mode-project {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .page-shell.is-mode-project .shell {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .page-shell .visual-slot--project + .project-block {
+    margin-top: 56px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
