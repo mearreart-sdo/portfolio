@@ -106,16 +106,18 @@
   };
 
   const paintShared = (p) => {
-    // Ride only moves the frame — size stays the home size until docked.
+    // Size reaches the project frame early so the banner travels at final
+    // dimensions — not as a cropped home strip that expands on dock.
     const from = pinned && fromBox ? fromBox : readRect(slotHome);
     const to = pinned && toBox ? toBox : readRect(slotProject);
     if (!from.width || !to.width) return;
-    const t = easeOut(clamp(p, 0, 1));
+    const moveT = easeOut(clamp(p, 0, 1));
+    const sizeT = easeOut(clamp(p / 0.22, 0, 1));
     applySharedBox({
-      top: from.top + (to.top - from.top) * t,
-      left: from.left + (to.left - from.left) * t,
-      width: from.width,
-      height: from.height,
+      top: from.top + (to.top - from.top) * moveT,
+      left: from.left + (to.left - from.left) * moveT,
+      width: from.width + (to.width - from.width) * sizeT,
+      height: from.height + (to.height - from.height) * sizeT,
     });
   };
 
