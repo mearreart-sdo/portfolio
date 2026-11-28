@@ -1,4 +1,5 @@
 @import url("tokens.css");
+@import url("components/components.css");
 
 @font-face {
   font-family: "Golos Text";
@@ -64,7 +65,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* —— Mobbin-like page enter —— */
+/* —— Page enter —— */
 .page-enter-item {
   --enter-delay: 0ms;
 }
@@ -109,81 +110,7 @@ body.is-page-ready .shared-visual {
   }
 }
 
-/* —— Site header —— */
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 60;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-24);
-  min-height: var(--header-h);
-  padding: 14px var(--page-pad-x);
-  background: rgba(255, 255, 255, 0.52);
-  border-bottom: none;
-  -webkit-backdrop-filter: blur(18px) saturate(1.35);
-  backdrop-filter: blur(18px) saturate(1.35);
-  transform: translate3d(0, 0, 0);
-  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-body.is-header-hidden .site-header {
-  transform: translate3d(0, calc(-100% - 1px), 0);
-}
-
-body.is-header-static .site-header {
-  transition: none;
-}
-
-.site-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--color-ink);
-  text-decoration: none;
-}
-
-.site-brand-mark {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  object-fit: cover;
-  display: block;
-  flex-shrink: 0;
-}
-
-.site-brand-name {
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0.02em;
-}
-
-.site-nav {
-  display: inline-flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.site-nav-link {
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--color-ink);
-  text-decoration: none;
-  letter-spacing: -0.01em;
-}
-
-.site-nav-link:hover {
-  opacity: var(--opacity-hover);
-}
-
-/* —— Shell: home + project, one shared img —— */
+/* —— Shell: home + project composition —— */
 .page-shell {
   height: 100%;
   overflow: hidden;
@@ -227,11 +154,6 @@ body.is-header-static .site-header {
   grid-row: 1;
   align-self: start;
   margin: var(--space-title) 0 0;
-  font-size: var(--text-display-size);
-  font-weight: var(--text-display-weight);
-  line-height: var(--text-display-leading);
-  letter-spacing: var(--text-display-tracking);
-  color: var(--color-ink);
   opacity: calc(1 - var(--leave-up));
   transform: translate3d(0, calc(var(--leave-up) * -56px), 0);
   filter: blur(calc(var(--leave-up) * 4px));
@@ -243,59 +165,19 @@ body.is-header-static .site-header {
   grid-row: 1;
   align-self: start;
   margin-top: var(--space-social);
-  display: flex;
-  align-items: center;
-  gap: var(--space-48);
-  color: var(--color-ink);
   opacity: calc(1 - var(--leave-social));
   transform: translate3d(calc(var(--leave-social) * 72px), 0, 0);
   will-change: opacity, transform;
-}
-
-.page-shell .arrow {
-  width: var(--arrow-w);
-  height: var(--arrow-h);
-  object-fit: contain;
-  flex-shrink: 0;
-  display: block;
-}
-
-.page-shell .social-links {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-}
-
-.page-shell .social-links a {
-  font-size: var(--text-link-size);
-  font-weight: var(--text-link-weight);
-  line-height: var(--text-link-leading);
-  color: var(--color-ink);
-  text-decoration: none;
-  letter-spacing: var(--text-link-tracking);
-}
-
-.page-shell .social-links a:hover {
-  opacity: var(--opacity-hover);
 }
 
 .page-shell .tags {
   grid-column: 1 / -1;
   grid-row: 2;
   margin: var(--space-tags) 0 0;
-  font-size: var(--text-meta-size);
-  font-weight: var(--text-meta-weight);
-  line-height: var(--text-meta-leading);
-  color: var(--color-muted);
-  letter-spacing: var(--text-meta-tracking);
   opacity: calc(1 - var(--leave-up));
   transform: translate3d(0, calc(var(--leave-up) * -48px), 0);
   filter: blur(calc(var(--leave-up) * 4px));
   will-change: opacity, transform, filter;
-}
-
-.page-shell .tags .sep {
-  margin: 0 var(--sep-gap);
 }
 
 .page-shell .visual-slot--home {
@@ -306,8 +188,6 @@ body.is-header-static .site-header {
   width: 100%;
 }
 
-/* Project panel stays absolute. Layout metrics must NOT change when mode flips —
-   that end remount/remeasure was the image jump. */
 .page-shell .project-panel {
   position: absolute;
   inset: 0;
@@ -384,7 +264,6 @@ body.is-header-static .site-header {
   margin-top: 100px;
 }
 
-/* One reusable image — always fixed; position via transform */
 .shared-visual {
   position: fixed;
   top: 0;

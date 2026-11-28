@@ -1,0 +1,363 @@
+/*
+  Portfolio component library
+  Source of truth for reusable UI. Pages compose these classes.
+  Kit (kit.html) demos the same components.
+*/
+
+/* ——— Header ——— */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  min-height: var(--header-h);
+  padding: 14px var(--page-pad-x);
+  background: rgba(255, 255, 255, 0.52);
+  border-bottom: none;
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+  backdrop-filter: blur(18px) saturate(1.35);
+  transform: translate3d(0, 0, 0);
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+body.is-header-hidden .site-header {
+  transform: translate3d(0, calc(-100% - 1px), 0);
+}
+
+body.is-header-static .site-header {
+  transition: none;
+}
+
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.site-brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+.site-brand-name {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.site-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.site-nav-link {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.site-nav-link:hover {
+  opacity: var(--opacity-hover);
+}
+
+/* ——— Display (kit: Display 132/300) ——— */
+.c-display,
+.title,
+.project-title {
+  margin: 0;
+  font-size: var(--text-display-size);
+  font-weight: var(--text-display-weight);
+  line-height: var(--text-display-leading);
+  letter-spacing: var(--text-display-tracking);
+  color: var(--color-ink);
+}
+
+/* ——— Link role (kit: Link 38/400) ——— */
+.c-link,
+.social-links a,
+.project-lead {
+  margin: 0;
+  font-size: var(--text-link-size);
+  font-weight: var(--text-link-weight);
+  line-height: var(--text-link-leading);
+  letter-spacing: var(--text-link-tracking);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.social-links a:hover,
+.c-link:hover {
+  opacity: var(--opacity-hover);
+}
+
+/* ——— Meta role (kit: Meta 28/400) ——— */
+.c-meta,
+.tags,
+.project-label {
+  margin: 0;
+  font-size: var(--text-meta-size);
+  font-weight: var(--text-meta-weight);
+  line-height: var(--text-meta-leading);
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--color-ink);
+}
+
+.tags {
+  color: var(--color-muted);
+}
+
+.c-meta .sep,
+.tags .sep,
+.project-tags .sep,
+.project-quote-tags .sep {
+  margin: 0 var(--sep-gap);
+}
+
+/* ——— Social cluster ——— */
+.c-social,
+.social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-48);
+  color: var(--color-ink);
+}
+
+.c-arrow,
+.arrow {
+  width: var(--arrow-w);
+  height: var(--arrow-h);
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.c-link-stack,
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* ——— Mark / logo ——— */
+.c-mark,
+.logo {
+  width: var(--logo-size);
+  height: var(--logo-size);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  display: block;
+}
+
+/* ——— Project head ——— */
+.c-project-head,
+.project-head {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.c-project-head-main,
+.project-head-main {
+  display: flex;
+  flex-direction: row;
+  align-items: last baseline;
+  column-gap: var(--grid-gap-x);
+}
+
+.c-project-head-main > *,
+.project-head-main > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.c-project-head-meta,
+.project-head-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  column-gap: var(--grid-gap-x);
+}
+
+.c-project-head-meta > *,
+.project-head-meta > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.c-project-url,
+.project-url {
+  display: inline-block;
+  margin: 0;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: var(--text-meta-weight);
+  line-height: 1.2;
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.c-project-url:hover,
+.project-url:hover {
+  opacity: var(--opacity-hover);
+}
+
+.c-project-tags,
+.project-tags {
+  margin: -10px 0 0;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: var(--text-meta-weight);
+  line-height: 1.2;
+  letter-spacing: var(--text-meta-tracking);
+  color: rgb(0, 0, 0);
+}
+
+/* ——— Project block ——— */
+.c-project-block,
+.project-block {
+  margin: var(--space-64) 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--grid-gap-x);
+  align-items: start;
+}
+
+.c-project-copy,
+.project-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.c-project-copy p,
+.c-project-copy li,
+.project-copy p,
+.project-copy li {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--text-meta-size);
+  font-weight: var(--text-meta-weight);
+  line-height: 1.25;
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--color-ink);
+}
+
+.c-project-copy ul,
+.project-copy ul {
+  margin: 0;
+  padding: 0 0 0 1.1em;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ——— Project media ——— */
+.c-project-shot,
+.project-shot {
+  margin: 100px 0 0;
+  width: 100%;
+}
+
+.c-project-shot + .c-project-shot,
+.project-shot + .project-shot {
+  margin-top: 16px;
+}
+
+.c-project-shot img,
+.project-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.c-project-shot + .c-project-block,
+.c-project-quote + .c-project-block,
+.project-shot + .project-block,
+.project-quote + .project-block {
+  margin-top: 100px;
+}
+
+/* ——— Project quote ——— */
+.c-project-quote,
+.project-quote {
+  box-sizing: border-box;
+  margin: 120px 0;
+  margin-left: max(0px, calc(28.5vw - var(--page-pad-x)));
+  width: 52vw;
+  max-width: calc(100% - max(0px, calc(28.5vw - var(--page-pad-x))));
+  display: block;
+}
+
+.c-project-quote + .c-project-shot,
+.project-quote + .project-shot {
+  margin-top: 0;
+}
+
+.c-project-quote-inner,
+.project-quote-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.c-project-quote-inner > p:first-child,
+.project-quote-inner > p:first-child {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 38px;
+  font-weight: var(--text-link-weight);
+  line-height: var(--text-link-leading);
+  letter-spacing: var(--text-link-tracking);
+  color: var(--color-ink);
+}
+
+.c-project-quote-tags,
+.project-quote-tags {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: var(--text-meta-weight);
+  line-height: 1.2;
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--color-muted);
+}
+
+/* ——— Visual / hero media ——— */
+.c-visual,
+.project-hero {
+  margin: var(--space-64) 0 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.c-visual img,
+.project-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.project-hero + .project-block,
+.c-visual + .c-project-block {
+  margin-top: 100px;
+}

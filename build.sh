@@ -18,10 +18,11 @@ PY
 fi
 
 rm -rf "$DIST"
-mkdir -p "$DIST/js" "$DIST/assets" "$DIST/fonts"
+mkdir -p "$DIST/js" "$DIST/assets" "$DIST/fonts" "$DIST/components"
 
 cp "$ROOT/index.html" "$ROOT/sfera.html" "$ROOT/kit.html" "$ROOT/login.html" "$DIST/"
 cp "$ROOT/styles.css" "$ROOT/tokens.css" "$ROOT/sfera.css" "$ROOT/login.css" "$DIST/"
+cp -R "$ROOT/components/." "$DIST/components/"
 cp "$ROOT/js/auth.js" "$ROOT/js/shared-scroll.js" "$ROOT/js/page-enter.js" "$ROOT/js/site-header.js" "$DIST/js/"
 # Legacy files kept if still referenced elsewhere
 [ -f "$ROOT/js/home-scroll.js" ] && cp "$ROOT/js/home-scroll.js" "$DIST/js/"

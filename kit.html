@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kit · Main page</title>
+    <title>Kit · Component library</title>
     <link rel="icon" href="assets/logo.png" type="image/png" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=25" />
     <style id="auth-hide">html.auth-pending body{visibility:hidden}</style>
     <script>document.documentElement.classList.add("auth-pending")</script>
     <script src="js/auth-config.js"></script>
@@ -20,7 +20,7 @@
       .kit {
         max-width: 1440px;
         margin: 0 auto;
-        padding: var(--page-pad-top) var(--page-pad-x) 96px;
+        padding: calc(var(--header-h) + var(--page-pad-top)) var(--page-pad-x) 96px;
       }
 
       .kit-top {
@@ -50,7 +50,7 @@
 
       .kit-lead {
         margin: 16px 0 0;
-        max-width: 36em;
+        max-width: 40em;
         font-size: var(--text-meta-size);
         font-weight: var(--text-meta-weight);
         line-height: var(--text-meta-leading);
@@ -91,6 +91,27 @@
         text-transform: uppercase;
       }
 
+      .kit-section h3 {
+        margin: 0 0 16px;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+      }
+
+      .kit-note {
+        margin: 12px 0 0;
+        font-size: 16px;
+        line-height: 1.35;
+        color: var(--color-muted);
+      }
+
+      .kit-note code {
+        font-family: var(--font);
+        font-size: inherit;
+      }
+
       .swatches {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -102,17 +123,9 @@
         border: 1px solid var(--color-ink);
       }
 
-      .swatch-chip.is-ink {
-        background: var(--color-ink);
-      }
-
-      .swatch-chip.is-bg {
-        background: var(--color-bg);
-      }
-
-      .swatch-chip.is-muted {
-        background: var(--color-muted);
-      }
+      .swatch-chip.is-ink { background: var(--color-ink); }
+      .swatch-chip.is-bg { background: var(--color-bg); }
+      .swatch-chip.is-muted { background: var(--color-muted); }
 
       .swatch-meta {
         margin: 16px 0 0;
@@ -155,29 +168,32 @@
         font-weight: 400;
       }
 
-      .specimen-display {
-        margin: 0;
-        font-size: var(--text-display-size);
-        font-weight: var(--text-display-weight);
-        line-height: var(--text-display-leading);
-        letter-spacing: var(--text-display-tracking);
+      .demo-frame {
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        background: var(--color-bg);
+        padding: var(--space-48) var(--page-pad-x);
+        overflow: hidden;
       }
 
-      .specimen-link {
-        margin: 0;
-        font-size: var(--text-link-size);
-        font-weight: var(--text-link-weight);
-        line-height: var(--text-link-leading);
-        letter-spacing: var(--text-link-tracking);
+      .demo-frame + .demo-frame,
+      .demo-frame + .kit-note,
+      .kit-note + .demo-frame {
+        margin-top: var(--space-48);
       }
 
-      .specimen-meta {
-        margin: 0;
-        font-size: var(--text-meta-size);
-        font-weight: var(--text-meta-weight);
-        line-height: var(--text-meta-leading);
-        letter-spacing: var(--text-meta-tracking);
-        color: var(--color-muted);
+      .demo-frame.is-header {
+        position: relative;
+        padding: 0;
+        min-height: var(--header-h);
+      }
+
+      .demo-frame.is-header .site-header {
+        position: relative;
+      }
+
+      .demo-stack {
+        display: grid;
+        gap: var(--space-64);
       }
 
       .space-list {
@@ -210,84 +226,6 @@
         background: var(--color-ink);
       }
 
-      .layout-frame {
-        border: 1px solid var(--color-ink);
-        padding: var(--page-pad-top) var(--page-pad-x) 0;
-        min-height: 720px;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        grid-template-rows: auto auto auto 1fr;
-        column-gap: var(--grid-gap-x);
-        background: var(--color-bg);
-      }
-
-      .layout-logo {
-        grid-column: 1;
-        grid-row: 1;
-        width: var(--logo-size);
-        height: var(--logo-size);
-        border-radius: var(--radius-full);
-        background: var(--color-ink);
-      }
-
-      .layout-title {
-        grid-column: 1;
-        grid-row: 2;
-        margin: var(--space-title) 0 0;
-        font-size: 42px;
-        font-weight: 300;
-        line-height: 0.94;
-        letter-spacing: -0.04em;
-      }
-
-      .layout-social {
-        grid-column: 2;
-        grid-row: 2;
-        margin-top: var(--space-social);
-        display: flex;
-        align-items: center;
-        gap: var(--space-48);
-        font-size: 22px;
-        line-height: 1.1;
-      }
-
-      .layout-tags {
-        grid-column: 1 / -1;
-        grid-row: 3;
-        margin: var(--space-tags) 0 0;
-        font-size: var(--text-meta-size);
-        color: var(--color-muted);
-      }
-
-      .layout-visual {
-        grid-column: 1 / -1;
-        grid-row: 4;
-        align-self: end;
-        height: var(--visual-h);
-        background: var(--color-ink);
-      }
-
-      .layout-notes {
-        margin: var(--space-48) 0 0;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: var(--space-48);
-      }
-
-      .layout-notes p {
-        margin: 0;
-        font-size: 16px;
-        line-height: 1.35;
-        color: var(--color-muted);
-      }
-
-      .layout-notes strong {
-        display: block;
-        margin-bottom: 6px;
-        color: var(--color-ink);
-        font-weight: 400;
-      }
-
       .size-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -308,45 +246,10 @@
         font-weight: 400;
       }
 
-      .size-logo {
-        width: var(--logo-size);
-        height: var(--logo-size);
-        border-radius: var(--radius-full);
-        object-fit: cover;
-        display: block;
-      }
-
-      .size-arrow {
-        width: var(--arrow-w);
-        height: var(--arrow-h);
-        object-fit: contain;
-        display: block;
-      }
-
-      .size-visual {
-        width: 100%;
-        height: var(--visual-h);
-        object-fit: cover;
-        display: block;
-      }
-
       .state-row {
         display: flex;
         gap: var(--space-48);
         align-items: baseline;
-      }
-
-      .state-row a {
-        font-size: var(--text-link-size);
-        font-weight: var(--text-link-weight);
-        line-height: var(--text-link-leading);
-        letter-spacing: var(--text-link-tracking);
-        color: var(--color-ink);
-        text-decoration: none;
-      }
-
-      .state-row a.is-hover {
-        opacity: var(--opacity-hover);
       }
 
       .state-cap {
@@ -354,31 +257,34 @@
         font-size: 16px;
         color: var(--color-muted);
       }
-
-      code {
-        font-family: var(--font);
-        font-size: inherit;
-      }
-
-      .specimen-meta .sep {
-        margin: 0 var(--sep-gap);
-      }
     </style>
   </head>
-  <body>
+  <body class="is-header-static">
+    <header class="site-header" data-site-header>
+      <a class="site-brand" href="index.html">
+        <img class="site-brand-mark" src="assets/logo.png" width="40" height="40" alt="" />
+        <span class="site-brand-name">I K</span>
+      </a>
+      <nav class="site-nav" aria-label="Kit">
+        <a class="site-nav-link" href="index.html">Main</a>
+        <a class="site-nav-link" href="#components">Components</a>
+      </nav>
+    </header>
+
     <main class="kit">
       <header class="kit-top">
         <div>
-          <p class="kit-kicker">Portfolio · tokens</p>
-          <h1 class="kit-title">Main page kit</h1>
+          <p class="kit-kicker">Portfolio · library</p>
+          <h1 class="kit-title">Component kit</h1>
           <p class="kit-lead">
-            Цвета, типографика, отступы и лэйаут из Main page.
-            Только production-значения из index.html и styles.css.
+            Боевые UI-блоки из <code>components/components.css</code>.
+            Страницы собираются из этих же классов — без отдельной визуальной копии.
           </p>
         </div>
         <nav class="kit-nav">
           <a href="index.html">Main page</a>
           <a href="tokens.css">tokens.css</a>
+          <a href="components/components.css">components.css</a>
         </nav>
       </header>
 
@@ -390,7 +296,7 @@
             <p class="swatch-meta">
               <strong>Background</strong>
               <span>#FFFFFF</span>
-              <small>--color-bg · html, body, .stage</small>
+              <small>--color-bg</small>
             </p>
           </div>
           <div>
@@ -398,7 +304,7 @@
             <p class="swatch-meta">
               <strong>Ink</strong>
               <span>#000000</span>
-              <small>--color-ink · title, links, arrow</small>
+              <small>--color-ink</small>
             </p>
           </div>
           <div>
@@ -406,7 +312,7 @@
             <p class="swatch-meta">
               <strong>Muted</strong>
               <span>#4C4C4C</span>
-              <small>--color-muted · .tags</small>
+              <small>--color-muted</small>
             </p>
           </div>
         </div>
@@ -415,39 +321,132 @@
       <section class="kit-section">
         <h2>Типографика</h2>
         <p class="kit-lead" style="margin: -24px 0 48px; max-width: none">
-          Один шрифт: Golos Text. Три роли.
+          Golos Text · роли через <code>.c-display</code> / <code>.c-link</code> / <code>.c-meta</code>
+          (алиасы: <code>.title</code>, <code>.project-title</code>, <code>.social-links a</code>, <code>.tags</code>…)
         </p>
 
         <div class="type-row">
           <p class="type-spec">
             <strong>Display</strong>
             132 / 300<br />
-            lh 0.94 · ls −0.04em<br />
-            .title
+            .c-display · .title · .project-title
           </p>
-          <p class="specimen-display">Менеджмент</p>
+          <p class="c-display">Менеджмент</p>
         </div>
 
         <div class="type-row">
           <p class="type-spec">
             <strong>Link</strong>
             38 / 400<br />
-            lh 1.1 · ls −0.01em<br />
-            .social-links a
+            .c-link · .social-links a · .project-lead
           </p>
-          <p class="specimen-link">telegram<br />linkedin</p>
+          <p class="c-link">telegram<br />linkedin</p>
         </div>
 
         <div class="type-row">
           <p class="type-spec">
             <strong>Meta</strong>
-            28 / 400<br />
-            lh 1.1 · ls +0.01em<br />
-            .tags · цвет muted
+            28 / 400 · muted на .tags<br />
+            .c-meta · .tags · .project-label
           </p>
-          <p class="specimen-meta">
-            brand<span class="sep">•</span>UX/UI<span class="sep">•</span>product design
-          </p>
+          <p class="tags">brand<span class="sep">•</span>UX/UI<span class="sep">•</span>product design</p>
+        </div>
+      </section>
+
+      <section class="kit-section" id="components">
+        <h2>Components</h2>
+
+        <div class="demo-stack">
+          <div>
+            <h3>Header · .site-header</h3>
+            <div class="demo-frame is-header">
+              <header class="site-header">
+                <a class="site-brand" href="index.html">
+                  <img class="site-brand-mark" src="assets/logo.png" width="40" height="40" alt="" />
+                  <span class="site-brand-name">I K</span>
+                </a>
+                <nav class="site-nav" aria-label="Demo">
+                  <a class="site-nav-link" href="#">Проекты</a>
+                  <a class="site-nav-link" href="#">Обо мне</a>
+                </nav>
+              </header>
+            </div>
+            <p class="kit-note">Шаблон: <code>components/header.html</code></p>
+          </div>
+
+          <div>
+            <h3>Social · .social / .c-social</h3>
+            <div class="demo-frame">
+              <div class="social">
+                <img class="arrow" src="assets/arrow.png" width="76" height="68" alt="" />
+                <div class="social-links">
+                  <a href="#">telegram</a>
+                  <a href="#">linkedin</a>
+                </div>
+              </div>
+            </div>
+            <p class="kit-note">Шаблон: <code>components/social.html</code></p>
+          </div>
+
+          <div>
+            <h3>Project head · .project-head</h3>
+            <div class="demo-frame">
+              <header class="project-head">
+                <div class="project-head-main">
+                  <h1 class="project-title">Sfera</h1>
+                  <p class="project-lead">Платформа для<br />разработки ИТ-продуктов</p>
+                </div>
+                <div class="project-head-meta">
+                  <a class="project-url" href="#">sferaplatform.ru</a>
+                  <p class="project-tags">managment<span class="sep">•</span>UX/UI<span class="sep">•</span>product design<span class="sep">•</span>web</p>
+                </div>
+              </header>
+            </div>
+            <p class="kit-note">Шаблон: <code>components/project-head.html</code></p>
+          </div>
+
+          <div>
+            <h3>Project block · .project-block</h3>
+            <div class="demo-frame">
+              <section class="project-block" style="margin-top: 0">
+                <h2 class="project-label">О проекте</h2>
+                <div class="project-copy">
+                  <p>Сфера — платформа производства ИТ-продуктов. Замещает Jira, Confluence, Bitbucket и другие ушедшие продукты.</p>
+                </div>
+              </section>
+            </div>
+            <p class="kit-note">Шаблон: <code>components/project-block.html</code></p>
+          </div>
+
+          <div>
+            <h3>Project quote · .project-quote</h3>
+            <div class="demo-frame">
+              <section class="project-quote" style="margin: 0; margin-left: 0; width: 100%; max-width: none">
+                <div class="project-quote-inner">
+                  <p>Важно сохранять ощущение дружелюбной и эмоциональной среды.</p>
+                  <p class="project-quote-tags">иконографика<span class="sep">•</span>иллюстрация<span class="sep">•</span>эмоциональная среда</p>
+                </div>
+              </section>
+            </div>
+            <p class="kit-note">Шаблон: <code>components/project-quote.html</code></p>
+          </div>
+
+          <div>
+            <h3>Project shot · .project-shot</h3>
+            <div class="demo-frame">
+              <figure class="project-shot" style="margin-top: 0">
+                <img src="assets/sfera-home.png" alt="" />
+              </figure>
+            </div>
+            <p class="kit-note">Шаблон: <code>components/project-shot.html</code></p>
+          </div>
+
+          <div>
+            <h3>Mark · .logo / .c-mark</h3>
+            <div class="demo-frame">
+              <img class="logo" src="assets/logo.png" alt="" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -455,80 +454,25 @@
         <h2>Отступы</h2>
         <div class="space-list">
           <div class="space-row">
-            <p>
-              <strong>--space-8 · 8px</strong>
-              gap между telegram / linkedin
-            </p>
+            <p><strong>--space-8 · 8px</strong>gap между telegram / linkedin</p>
             <div class="space-bar" style="width: 8px"></div>
           </div>
           <div class="space-row">
-            <p>
-              <strong>--space-24 · 24px</strong>
-              паддинг сцены сверху и по бокам
-            </p>
+            <p><strong>--space-24 · 24px</strong>паддинг сцены</p>
             <div class="space-bar" style="width: 24px"></div>
           </div>
           <div class="space-row">
-            <p>
-              <strong>--space-48 · 48px</strong>
-              column-gap сетки и gap стрелка → ссылки
-            </p>
+            <p><strong>--space-48 · 48px</strong>column-gap и gap стрелка → ссылки</p>
             <div class="space-bar" style="width: 48px"></div>
           </div>
           <div class="space-row">
-            <p>
-              <strong>--space-64 · 64px</strong>
-              отступ тегов от заголовка
-            </p>
+            <p><strong>--space-64 · 64px</strong>отступ тегов / блоков</p>
             <div class="space-bar" style="width: 64px"></div>
           </div>
           <div class="space-row">
-            <p>
-              <strong>--space-106 · 106px</strong>
-              отступ заголовка от логотипа
-            </p>
-            <div class="space-bar" style="width: 106px"></div>
+            <p><strong>--header-h · 68px</strong>высота sticky header</p>
+            <div class="space-bar" style="width: 68px"></div>
           </div>
-          <div class="space-row">
-            <p>
-              <strong>--space-118 · 118px</strong>
-              отступ соцблока от верхней линии ряда
-            </p>
-            <div class="space-bar" style="width: 118px"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="kit-section">
-        <h2>Лэйаут</h2>
-        <div class="layout-frame">
-          <div class="layout-logo"></div>
-          <p class="layout-title">Менеджмент<br />Артдирекшн<br />Дизайн</p>
-          <div class="layout-social">
-            <img class="size-arrow" src="assets/arrow.png" alt="" />
-            <div>telegram<br />linkedin</div>
-          </div>
-          <p class="layout-tags">brand · UX/UI · product design · web · mobile</p>
-          <div class="layout-visual"></div>
-        </div>
-        <div class="layout-notes">
-          <p>
-            <strong>Сетка</strong>
-            2 колонки: 1fr / auto<br />
-            4 ряда: auto auto auto 1fr<br />
-            column-gap 48px
-          </p>
-          <p>
-            <strong>Паддинг сцены</strong>
-            24px сверху и по бокам<br />
-            0 снизу — визуал в край
-          </p>
-          <p>
-            <strong>Ячейки</strong>
-            logo: col 1 / row 1<br />
-            title: col 1 / row 2 · social: col 2 / row 2<br />
-            tags: span / row 3 · visual: span / row 4, end
-          </p>
         </div>
       </section>
 
@@ -536,16 +480,16 @@
         <h2>Размеры</h2>
         <div class="size-grid">
           <div class="size-item">
-            <img class="size-logo" src="assets/logo.png" alt="" />
-            <p><strong>Logo 62×62</strong>radius 50% · --logo-size</p>
+            <img class="logo" src="assets/logo.png" alt="" />
+            <p><strong>Logo 62×62</strong>--logo-size</p>
           </div>
           <div class="size-item">
-            <img class="size-arrow" src="assets/arrow.png" alt="" />
+            <img class="arrow" src="assets/arrow.png" alt="" />
             <p><strong>Arrow 76×68</strong>--arrow-w / --arrow-h</p>
           </div>
           <div class="size-item">
-            <img class="size-visual" src="assets/hero.png" alt="" />
-            <p><strong>Visual 100% × 207</strong>--visual-h · object-fit cover</p>
+            <img src="assets/hero.png" alt="" style="width: 100%; height: var(--visual-h); object-fit: cover; display: block" />
+            <p><strong>Visual 100% × 207</strong>--visual-h</p>
           </div>
         </div>
       </section>
@@ -554,11 +498,11 @@
         <h2>Состояние</h2>
         <div class="state-row">
           <div>
-            <a href="#">telegram</a>
+            <a class="c-link" href="#">telegram</a>
             <p class="state-cap">default · opacity 1</p>
           </div>
           <div>
-            <a class="is-hover" href="#">telegram</a>
+            <a class="c-link" href="#" style="opacity: var(--opacity-hover)">telegram</a>
             <p class="state-cap">hover · opacity 0.55</p>
           </div>
         </div>
